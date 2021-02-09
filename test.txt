@@ -1,2 +1,2 @@
 this is a test to test version control
-trivial change.
+trivial changed.
