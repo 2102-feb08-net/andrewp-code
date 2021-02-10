@@ -7,6 +7,25 @@ namespace RPS
         static void Main(string[] args)
         {
             var client = new RPSClient();
+            bool selected = false;
+
+            while(!selected)
+            {
+                try
+                {
+                    selected = client.takeDifficultyInput();
+                }
+                catch(InvalidOperationException)
+                {
+                    Console.WriteLine("\nInvalid input please try again.\n");
+                }
+                catch(SystemException)
+                {
+                    Console.WriteLine("\nQuitting RPS Game.");
+                    return;
+                }
+            }
+
             while(true)
             {
                 try
@@ -21,7 +40,7 @@ namespace RPS
                 catch(SystemException)
                 {
                     Console.WriteLine("\nQuitting RPS Game.");
-                    break;
+                    return;
                 }
             }
         }

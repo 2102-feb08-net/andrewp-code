@@ -6,7 +6,9 @@ namespace RPS
     {
         private int playerScore = 0;
         private int computerScore = 0;
-        public RPSChoices takeInput()
+        private RPSDifficulty currentDifficulty = RPSDifficulty.Normal;
+
+        public RPSChoices takeChoiceInput()
         {
             Console.WriteLine("Please input your choice\n0 - Rock | 1 - Paper | 2 - Scissors | q - Quit");
             
@@ -25,6 +27,27 @@ namespace RPS
             }
         }
 
+        public Boolean takeDifficultyInput()
+        {
+            Console.WriteLine("Please choose your difficulty\n0 - Easy | 1 - Normal | 2 - Hard | q - Quit");
+            switch (Console.ReadLine())
+            {
+                case "0":
+                    currentDifficulty = RPSDifficulty.Easy;
+                    return true;
+                case "1":
+                    currentDifficulty = RPSDifficulty.Normal;
+                    return true;
+                case "2":
+                    currentDifficulty = RPSDifficulty.Hard;
+                    return true;
+                case "q":
+                    throw new SystemException("Quit the game");
+                default:
+                    throw new InvalidOperationException("Invalid Operation");
+            }
+        }
+
         public RPSChoices randomChoice()
         {
             var rand = new Random();
@@ -36,20 +59,29 @@ namespace RPS
             return RPSChoices.Rock;
         }
 
+        public RPSChoices impossibleChoice(RPSChoices playerChoice)
+        {
+            var choice = (int) playerChoice;
+            return (RPSChoices)((choice + 1) % 3);
+        }
+
         public void printScore()
         {
             Console.WriteLine("Player\tComputer");
             Console.WriteLine($"{playerScore}\t{computerScore}\n");
         }
 
-        public void turn()
+        public RPSChoices makeComputerChoice(RPSChoices playerChoice)
         {
-            var userChoice = takeInput();
-            var computerChoice = randomChoice();
+            if (currentDifficulty == RPSDifficulty.Easy)
+                return fixedChoice();
+            if (currentDifficulty == RPSDifficulty.Normal)
+                return randomChoice();
+            return impossibleChoice(playerChoice);
+        }
 
-            Console.WriteLine($"\nYou have chosen {userChoice}");
-            Console.WriteLine($"Computer has chosen {computerChoice}\n");
-
+        public void playTurn(RPSChoices userChoice, RPSChoices computerChoice)
+        {
             if (userChoice == computerChoice)
             {
                 Console.WriteLine("Tie!");
@@ -84,6 +116,17 @@ namespace RPS
                     playerScore++;
                 }
             }
+        }
+
+        public void turn()
+        {
+            var userChoice = takeChoiceInput();
+            var computerChoice = makeComputerChoice(userChoice);
+
+            Console.WriteLine($"\nYou have chosen {userChoice}");
+            Console.WriteLine($"Computer has chosen {computerChoice}\n");
+
+            playTurn(userChoice, computerChoice);
 
         }
     }
