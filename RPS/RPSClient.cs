@@ -8,7 +8,7 @@ namespace RPS
         private int computerScore = 0;
         public RPSChoices takeInput()
         {
-            Console.WriteLine("Please input your choice\n0 - Rock | 1 - Paper | 2 - Scissors");
+            Console.WriteLine("Please input your choice\n0 - Rock | 1 - Paper | 2 - Scissors | q - Quit");
             
             switch (Console.ReadLine())
             {
@@ -18,6 +18,8 @@ namespace RPS
                     return RPSChoices.Paper;
                 case "2":
                     return RPSChoices.Scissors;
+                case "q":
+                    throw new SystemException("Quit the game");
                 default:
                     throw new InvalidOperationException("Invalid Operation");
             }

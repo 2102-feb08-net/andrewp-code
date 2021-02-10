@@ -14,9 +14,14 @@ namespace RPS
                     client.turn();
                     client.printScore();
                 }
-                catch(InvalidOperationException e)
+                catch(InvalidOperationException)
                 {
                     Console.WriteLine("\nInvalid input please try again.\n");
+                }
+                catch(SystemException)
+                {
+                    Console.WriteLine("\nQuitting RPS Game.");
+                    break;
                 }
             }
         }
