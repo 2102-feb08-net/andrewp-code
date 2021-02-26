@@ -1,0 +1,44 @@
+.fox-img
+{
+    height: 100px;
+    width: 300px;
+}
+
+.fox-title
+{
+    margin-top: 30px;
+}
+
+main
+{
+    border: 3px solid #a52a2a;
+    padding: 5px 5px 5px 5px;
+    background-color: #FFFFE0;
+    width: 400px;
+}
+
+.fox-description
+{
+    border-style: dashed;
+    padding: 5px 5px 5px 5px;
+    background-color: yellow;
+    overflow-y: scroll;
+    width: 290px;
+    height: 200px;
+}
+
+.fox-description > p > span
+{
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.orange-border
+{
+    border: 5px solid orange;
+}
+
+.fox-margin
+{
+    margin: 10px;
+}
